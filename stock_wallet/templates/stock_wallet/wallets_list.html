@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head_title %}Wallets || {{block.super}}{% endblock head_title %}
+{% block head_content %}
+
+{% endblock head_content %}
+
+{% block content %}
+
+<h1>My Wallets</h1>
+{% for wallet in private_wallets %}
+    <li><a href="{% url 'stock_wallet:wallet_detail' slug=wallet.slug %}">{{ wallet.name }}</a> {{wallet.id}}</li>
+{% endfor %}
+
+
+
+<h1>Public Wallets</h1>
+{% for obj in object_list %}
+    <li><a href="{% url 'stock_wallet:wallet_detail' slug=obj.slug %}">{{ obj.name }}</a> {{obj.id}}</li>
+{% endfor %}
+<!--<ul>-->
+<!--    {% for obj in object_list %}-->
+<!--    <h5><a href="/attractions/{{obj.category|lower}}/{{obj.slug}}">{{ obj.name }} </a><small> {{ obj.category }}</small></h5>-->
+<!--    {% endfor %}-->
+
+<!--</ul>-->
+
+{% endblock %}
