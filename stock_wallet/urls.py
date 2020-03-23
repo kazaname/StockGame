@@ -11,4 +11,5 @@ app_name = 'stock_wallet'
 urlpatterns = [
     path('', PublicWalletsListView.as_view(), name='public_wallets'),
     path('<slug:slug>/', PublicWalletsDetailView.as_view(), name='wallet_detail'),
+    # path('<int:id>/', PublicWalletsDetailView.as_view(), name='wallet_detail'), URL powiązany jest z detail view get_object
 ]
