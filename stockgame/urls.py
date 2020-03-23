@@ -20,5 +20,5 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('', TemplateView.as_view(template_name='base.html'), name='home'),
     path('admin/', admin.site.urls),
-    path(r'wallets/', include('stock_wallet.urls'), name='steock_wallet'),
+    path(r'wallets/', include('stock_wallet.urls'), name='stock_wallet'),
 ]
