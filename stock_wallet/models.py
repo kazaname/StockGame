@@ -35,7 +35,7 @@ class PurchasedShare(models.Model):
     ammount                 = models.IntegerField(validators= [MinValueValidator(1),])
     price_for_one_stock     = models.DecimalField(max_digits=15, decimal_places=9)
     price_for_stocks        = models.DecimalField(max_digits=19, decimal_places=9, blank=True, null=True)
-    share_price             = models.DecimalField(max_digits=12, decimal_places=4)
+    share_price             = models.DecimalField(max_digits=12, decimal_places=4, blank=True, null=True)
     created_at              = models.DateTimeField(auto_now_add=True)
     updated_at              = models.DateTimeField(auto_now=True)
 
