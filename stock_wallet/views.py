@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
@@ -33,6 +34,20 @@ class PublicWalletsDetailView(DetailView):
     # queryset = Wallet.objects.all()
     template_name = "stock_wallet/wallet_detail.html"
 
+    # Poniższa metoda pozwala na wyciągnięcie z kwargs wartości id i pobranie objektu o podanym numerze id
+    # def get_object(self):
+    #     id_ = self.kwargs.get('id')
+    #     return get_object_or_404(Wallet, id=id_)
+
+    def get_object(self):
+        object = get_object_or_404(Wallet, slug=self.kwargs.get('slug'))
+        if object.is_private == True:
+            if object.user == self.request.user:
+                return object
+            else:
+                raise PermissionDenied
+        else:
+            return object
 
     # # Szkolenie eCommerce
     # def get_context_data(self, *args, **kwargs):
