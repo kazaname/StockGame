@@ -1,5 +1,5 @@
 from django.urls import path, include, re_path
-from .views import PublicWalletsListView, PublicWalletsDetailView
+from .views import WalletsListView, WalletsDetailView, WalletCreateView
 # from .views import WalletViewSet, PurchasedShareViewSet
 from rest_framework import routers
 
@@ -9,7 +9,9 @@ from rest_framework import routers
 app_name = 'stock_wallet'
 
 urlpatterns = [
-    path('', PublicWalletsListView.as_view(), name='public_wallets'),
-    path('<slug:slug>/', PublicWalletsDetailView.as_view(), name='wallet_detail'),
+    path('', WalletsListView.as_view(), name='public_wallets'),
+    path('create_wallet', WalletCreateView.as_view(), name='create_wallet'),
+    path('<slug:slug>/', WalletsDetailView.as_view(), name='wallet_detail'),
+
     # path('<int:id>/', PublicWalletsDetailView.as_view(), name='wallet_detail'), URL powiązany jest z detail view get_object
 ]
