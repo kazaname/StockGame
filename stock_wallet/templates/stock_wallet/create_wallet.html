@@ -6,10 +6,10 @@
 {% endblock head_content %}
 
 {% block content %}
-    {{ object.name }} <br/>
-    {{ object.total_profit }} <br/>
-    {{ object.is_private }} <br/>
-    {{ object.slug }} <br/>
-    {{ object.created_at }} <br/>
+
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Send message">
+    </form>
 
 {% endblock %}
