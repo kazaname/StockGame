@@ -15,6 +15,7 @@ class Wallet(models.Model):
     percentage_commission   = models.FloatField(blank=True, null=True)
     is_private              = models.BooleanField(default=True)
     slug                    = models.SlugField(blank=True, null=True)
+    comment                 = models.TextField(max_length=500, blank=True, null=True)
     created_at              = models.DateTimeField(auto_now_add=True)
     updated_at              = models.DateTimeField(auto_now=True)
 
@@ -36,6 +37,7 @@ class PurchasedShare(models.Model):
     price_for_one_stock     = models.DecimalField(max_digits=15, decimal_places=9)
     price_for_stocks        = models.DecimalField(max_digits=19, decimal_places=9, blank=True, null=True)
     share_price             = models.DecimalField(max_digits=12, decimal_places=4, blank=True, null=True)
+    comment                 = models.TextField(max_length=500, blank=True, null=True)
     created_at              = models.DateTimeField(auto_now_add=True)
     updated_at              = models.DateTimeField(auto_now=True)
 
@@ -43,12 +45,15 @@ class PurchasedShare(models.Model):
         return self.company
 
 class Dividend(models.Model):
-    stockrecord = models.ForeignKey(PurchasedShare, on_delete=models.CASCADE, blank=True, null=True)
-    payment_date = models.DateField()
-    ex_dividend_date = models.DateField()
-    value_per_stock = models.DecimalField(max_digits=15, decimal_places=9)
-    full_value = models.DecimalField(max_digits=15, decimal_places=9)
-    yield_per_stock = models.DecimalField(max_digits=15, decimal_places=9)
+    stockrecord             = models.ForeignKey(PurchasedShare, on_delete=models.CASCADE, blank=True, null=True)
+    payment_date            = models.DateField()
+    ex_dividend_date        = models.DateField()
+    value_per_stock         = models.DecimalField(max_digits=15, decimal_places=9)
+    full_value              = models.DecimalField(max_digits=15, decimal_places=9)
+    yield_per_stock         = models.DecimalField(max_digits=15, decimal_places=9)
+    comment                 = models.TextField(max_length=500, blank=True, null=True)
+    created_at              = models.DateTimeField(auto_now_add=True)
+    updated_at              = models.DateTimeField(auto_now=True)
 
 def create_slug_name(sender, instance, *args, **kwargs):
     instance.name = instance.name.title()
