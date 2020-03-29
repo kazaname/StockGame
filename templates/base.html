@@ -1,9 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block head_title %}StockGame{% endblock head_title %}</title>
+<!doctype html>
+<html lang="pl">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     {% include 'snippets/css.html' %}
+
+    <title>{% block head_title %}StockGame{% endblock head_title %}</title>
+
     {% block head_content %} {% endblock head_content %}
 </head>
 <body>
@@ -14,7 +20,8 @@
 
 </div>
 
-
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 {% include 'snippets/js.html' %}
 </body>
 </html>
