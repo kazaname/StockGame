@@ -16,11 +16,15 @@
 {% include "snippets/nav.html" %}
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-lg-4 order-1" style="min-height: 300px;">
+    <div class="row no-gutters">
+        <div class="col-12 col-lg-4 order-1">
+            <div class="alert alert-primary" role="alert" style="min-height: 800px;">
+                <h1 >Informations content</h1>
+
             {% block topcontent %}
 
             {% endblock topcontent %}
+            </div>
         </div>
         <div class="col-12 col-lg-8 order-6">
            {% block bottomcontent %}
