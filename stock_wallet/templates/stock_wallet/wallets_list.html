@@ -7,12 +7,18 @@
 
 {% block bottomcontent %}
 
-Jeżeli prywatne portfele nie istnieją wyświetl przycisk stwórz portfel
-
 {% if private_wallets.count == 1 %}
-    <h1 >My Wallet</h1>
+    <div class="alert alert-primary" role="alert">
+        <h1 >My Wallet</h1>
+    </div>
+    <h1 >My Wallet</h1> Dodać przycisk stwórz portfel
 {% elif private_wallets.count > 1 %}
-    <h1>My Wallets</h1>
+    <div class="content alert-primary" role="alert">
+        <div class="row">
+            <h1 class="col ml-2" >My Wallets</h1>
+        </div>
+    </div>
+     Dodać przycisk stwórz portfel
 {% endif %}
 
     <table class="table">
@@ -42,10 +48,7 @@ Jeżeli prywatne portfele nie istnieją wyświetl przycisk stwórz portfel
             {% endfor %}
         </tbody>
     </table>
-Dodać przycisk stwórz portfel
 
-
-Jeżeli publiczne portfele nie istnieją nie wyświetlaj nic
 {% if object_list.count >= 1 %}
     <h1>Public Wallets</h1>
     <table class="table">
