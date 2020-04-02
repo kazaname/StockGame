@@ -5,26 +5,77 @@
 
 {% endblock head_content %}
 
-{% block content %}
+{% block bottomcontent %}
 
 Jeżeli prywatne portfele nie istnieją wyświetl przycisk stwórz portfel
 
-Jeżeli mam jeden portfel wyświetliś 'My wallet'
+{% if private_wallets.count == 1 %}
+    <h1 >My Wallet</h1>
+{% elif private_wallets.count > 1 %}
+    <h1>My Wallets</h1>
+{% endif %}
 
-Jeżeli mam więcej niż jeden wyświetlić 'My wallets'
-<h1>My Wallets</h1>
-{% for wallet in private_wallets %}
-    <li><a href="{% url 'stock_wallet:wallet_detail' slug=wallet.slug %}">{{ wallet.name }}</a> {{wallet.id}}</li>
-{% endfor %}
-
+    <table class="table">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Właściciel</th>
+                <th scope="col">Zysk/Strata</th>
+                <th scope="col">Komentarz</th>
+                <th scope="col">Data ostatniej operacji</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wallet in private_wallets %}
+                {% if wallet.total_profit >= 0 %}
+                    <tr class="table-success">
+                {% elif wallet.total_profit <= 0 %}
+                    <tr class="table-danger">
+                {% endif %}
+                    <th scope="row"><a href="{% url 'stock_wallet:wallet_detail' slug=wallet.slug %}">{{ wallet.name }}</a></th>
+                    <td>{{ wallet.user }}</td>
+                    <td>{{ wallet.total_profit|floatformat:2 }}</td>
+                    <td>{{ wallet.comment }}</td>
+                    <td>{{ wallet.created_at }}</td>
+                </tr>
+    <!--            <li><a href="{% url 'stock_wallet:wallet_detail' slug=wallet.slug %}">{{ wallet.name }}</a> {{wallet.id}}</li>-->
+            {% endfor %}
+        </tbody>
+    </table>
 Dodać przycisk stwórz portfel
 
 
 Jeżeli publiczne portfele nie istnieją nie wyświetlaj nic
-<h1>Public Wallets</h1>
-{% for obj in object_list %}
-    <li><a href="{% url 'stock_wallet:wallet_detail' slug=obj.slug %}">{{ obj.name }}</a> {{obj.id}}</li>
-{% endfor %}
+{% if object_list.count >= 1 %}
+    <h1>Public Wallets</h1>
+    <table class="table">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Właściciel</th>
+                <th scope="col">Zysk/Strata</th>
+                <th scope="col">Komentarz</th>
+                <th scope="col">Data ostatniej operacji</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in object_list %}
+                {% if obj.total_profit >= 0 %}
+                    <tr class="table-success">
+                {% elif obj.total_profit <= 0 %}
+                    <tr class="table-danger">
+                {% endif %}
+                        <th scope="row"><a href="{% url 'stock_wallet:wallet_detail' slug=obj.slug %}">{{ obj.name }}</a></th>
+                        <td>{{ obj.user }}</td>
+                        <td>{{ obj.total_profit|floatformat:2 }}</td>
+                        <td>{{ obj.comment }}</td>
+                        <td>{{ obj.created_at }}</td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
 <!--<ul>-->
 <!--    {% for obj in object_list %}-->
 <!--    <h5><a href="/attractions/{{obj.category|lower}}/{{obj.slug}}">{{ obj.name }} </a><small> {{ obj.category }}</small></h5>-->
@@ -32,4 +83,4 @@ Jeżeli publiczne portfele nie istnieją nie wyświetlaj nic
 
 <!--</ul>-->
 
-{% endblock %}
+{% endblock bottomcontent %}
