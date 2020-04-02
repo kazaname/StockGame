@@ -5,11 +5,13 @@
 
 {% endblock head_content %}
 
-{% block content %}
+{% block bottomcontent %}
+<div class="alert alert-primary" role="alert" style="min-height: 800px;">
     {{ object.name }} <br/>
     {{ object.total_profit }} <br/>
     {{ object.is_private }} <br/>
     {{ object.slug }} <br/>
     {{ object.created_at }} <br/>
+</div>
 
-{% endblock %}
+{% endblock bottomcontent %}
