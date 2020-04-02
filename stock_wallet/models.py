@@ -8,8 +8,8 @@ from .utils import unique_slug_generator
 class Wallet(models.Model):
     user                    = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     name                    = models.CharField(max_length=30, blank=False)
-    total_profit            = models.DecimalField(max_digits=28, decimal_places=9, blank=True, null=True)
-    cash                    = models.DecimalField(max_digits=28, decimal_places=4, blank=True, null=True)
+    total_profit            = models.DecimalField(max_digits=28, decimal_places=9, default=0)
+    cash                    = models.DecimalField(max_digits=28, decimal_places=4, default=0)
     minimum_commission      = models.DecimalField(max_digits=8, decimal_places=4, blank=True, null=True,
                                                   validators=[MinValueValidator(0),])
     percentage_commission   = models.FloatField(blank=True, null=True)
