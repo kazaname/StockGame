@@ -14,7 +14,7 @@ class StockRecordTabularInLine(admin.TabularInline):
 
 class WalletAdmin(admin.ModelAdmin):
     inlines = [StockRecordTabularInLine]
-    list_display = ['name', 'user', 'cash', 'total_profit', 'is_private', 'slug']
+    list_display = ['name', 'user', 'cash', 'total_profit', 'is_private', 'slug', 'created_at', 'updated_at']
 
 class SummaryPurchasedShareAdmin(admin.ModelAdmin):
     list_display = ['company', 'short_name', 'ammount', 'price_for_one_stock', 'price_for_stocks']
