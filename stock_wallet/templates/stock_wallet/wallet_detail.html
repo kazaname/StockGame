@@ -6,12 +6,16 @@
 {% endblock head_content %}
 
 {% block bottomcontent %}
-<div class="alert alert-primary" role="alert" style="min-height: 800px;">
-    {{ object.name }} <br/>
-    {{ object.total_profit }} <br/>
-    {{ object.is_private }} <br/>
-    {{ object.slug }} <br/>
-    {{ object.created_at }} <br/>
-</div>
+<div class="container-fluid mt-3" style="min-height: 800px;">
+    <h4>{{ object.name }} <span class="desc">,Profit:
+        {% if object.total_profit >= 0 %}
+            <strong class="sucessProfit">{{ object.total_profit|floatformat:2 }} PLN</strong>
+        {% else %}
+            <strong class="failProfit">{{ object.total_profit|floatformat:2 }} PLN</strong>
+        {% endif %}
+    </span></h4>
 
+    <div class="walletDateIndex">Wallet created at: {{ object.created_at }}, Last update at: {{ object.updated_at }}</div>
+
+</div>
 {% endblock bottomcontent %}
