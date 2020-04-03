@@ -5,11 +5,11 @@
 
 {% endblock head_content %}
 
-{% block content %}
+{% block bottomcontent %}
 
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Send message">
     </form>
 
-{% endblock %}
+{% endblock bottomcontent %}
