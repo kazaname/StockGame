@@ -1,0 +1,17 @@
+.walletDateIndex {
+font-size: 0.7em;
+}
+
+.desc {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.sucessProfit {
+    color: #00cc00;
+}
+
+.failProfit {
+    color: #00cc00;
+}
