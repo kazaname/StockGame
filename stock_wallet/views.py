@@ -1,12 +1,13 @@
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, CreateView
-from .forms import ContactForm, WalletModelForm
+from .forms import WalletModelForm
 from .models import Wallet, PurchasedShare
 # from rest_framework import viewsets
 # from .serializers import WalletSerializer, PurchasedShareSerializer
+
 
 class WalletsListView(ListView):
     queryset = Wallet.objects.filter(is_private=False)
@@ -49,24 +50,80 @@ class WalletsDetailView(DetailView):
         else:
             return object
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(WalletsDetailView, self).get_context_data(*args, **kwargs)
+        qs_shares = context['object'].purchasedshare_set.distinct('company_name')
+        context['shares'] = {}
+        for qs in qs_shares:
+            context['shares'][qs.company_name] = {}
+            sum_dict = {}
+            amount = 0
+            qs_company = context['object'].purchasedshare_set.filter(company_name=qs.company_name, status=True)
+            context['shares'][qs.company_name]['data'] = qs_company
+            price_per_one = 0
+            amount_invested = 0
+            for qs_c in qs_company:
+                amount += qs_c.amount
+                price_per_one += qs_c.price_per_one
+                amount_invested += qs_c.amount_invested
+            sum_dict['amount'] = amount
+            sum_dict['price_per_one'] = round(price_per_one/len(qs_company),2)
+            sum_dict['amount_invested'] = round(amount_invested, 2)
+            context['shares'][qs.company_name]['sum'] = sum_dict
+        return context
+
     # # Szkolenie eCommerce
     # def get_context_data(self, *args, **kwargs):
     #     context = super(PublicWalletsDetailView, self).get_context_data(*args, **kwargs)
     #     # context['abc'] = 123
     #     return context
 
-class WalletCreateView(CreateView):
+class WalletCreateView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('home')
+
     template_name = 'stock_wallet/create_wallet.html'
     form_class = WalletModelForm
     success_url = reverse_lazy('stock_wallet:public_wallets')
+
+    def get(self, request, *args, **kwargs):
+        form = WalletModelForm()
+        context = { 'form': form }
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         form = WalletModelForm(request.POST)
         if form.is_valid():
             form.instance.user = self.request.user
             form.save()
-        return super(WalletCreateView, self).form_valid(form)
+            form = WalletModelForm()
+        context = {
+            'form': form
+        }
+        return render(request, self.template_name, context)
 
+class PurchasedShareListView(ListView):
+    model = PurchasedShare
+    template_name = "stock_wallet/purchased_share_list.html"
+
+    def get_queryset(self):
+        object_list = get_object_or_404(Wallet, slug=self.kwargs.get('slug'))
+        if object_list.is_private == True:
+            if object_list.user == self.request.user:
+                return object_list
+            else:
+                raise PermissionDenied
+        else:
+            return object_list
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PurchasedShareListView, self).get_context_data(*args, **kwargs)
+        if self.request.user.is_authenticated:
+            purchased_shares = context['object_list'].purchasedshare_set.filter(company_name=self.kwargs.get('company_name'))
+        else:
+            raise PermissionDenied
+
+        context['purchased_shares'] = purchased_shares
+        return context
 
 # class WalletViewSet(viewsets.ModelViewSet):
 #     queryset = Wallet.objects.all()
