@@ -8,27 +8,26 @@
 {% block bottomcontent %}
 
 {% if private_wallets.count == 1 %}
-    <div class="alert alert-primary" role="alert">
-        <h1 >My Wallet</h1>
+    <div>
+        <h1>My Wallet</h1>
     </div>
-    <h1 >My Wallet</h1> Dodać przycisk stwórz portfel
+        <h1>My Wallet</h1> Dodać przycisk stwórz portfel
 {% elif private_wallets.count > 1 %}
-    <div class="content alert-primary" role="alert">
-        <div class="row">
-            <h1 class="col ml-2" >My Wallets</h1>
-        </div>
+    <div>
+        <h1>My Wallets</h1>
     </div>
      Dodać przycisk stwórz portfel
 {% endif %}
 
-    <table class="table">
+{% if private_wallets.count > 0 %}
+    <table class="table table-bordered">
         <thead class="table-secondary">
             <tr>
-                <th scope="col">Nazwa</th>
-                <th scope="col">Właściciel</th>
-                <th scope="col">Zysk/Strata</th>
-                <th scope="col">Komentarz</th>
-                <th scope="col">Data ostatniej operacji</th>
+                <th class="col-2 text-center">Nazwa</th>
+                <th class="col-2 text-center">Właściciel</th>
+                <th class="col-2 text-center">Zysk/Strata</th>
+                <th class="col-3 text-center">Komentarz</th>
+                <th class="col-3 text-center">Data ostatniej operacji</th>
             </tr>
         </thead>
         <tbody>
@@ -38,27 +37,28 @@
                 {% elif wallet.total_profit <= 0 %}
                     <tr class="table-danger">
                 {% endif %}
-                    <th scope="row"><a href="{% url 'stock_wallet:wallet_detail' slug=wallet.slug %}">{{ wallet.name }}</a></th>
-                    <td>{{ wallet.user }}</td>
-                    <td>{{ wallet.total_profit|floatformat:2 }}</td>
-                    <td>{{ wallet.comment }}</td>
-                    <td>{{ wallet.created_at }}</td>
+                    <th scope="row" class="text-center"><a href="{% url 'stock_wallet:wallet_detail' slug=wallet.slug %}">{{ wallet.name }}</a></th>
+                    <td class="text-center">{{ wallet.user }}</td>
+                    <td class="text-center">{{ wallet.total_profit|floatformat:2 }}</td>
+                    <td class="text-center">{{ wallet.comment }}</td>
+                    <td class="text-center">{{ wallet.created_at }}</td>
                 </tr>
     <!--            <li><a href="{% url 'stock_wallet:wallet_detail' slug=wallet.slug %}">{{ wallet.name }}</a> {{wallet.id}}</li>-->
             {% endfor %}
         </tbody>
     </table>
+{% endif %}
 
 {% if object_list.count >= 1 %}
     <h1>Public Wallets</h1>
-    <table class="table">
+    <table class="table table-bordered">
         <thead class="table-secondary">
-            <tr>
-                <th scope="col">Nazwa</th>
-                <th scope="col">Właściciel</th>
-                <th scope="col">Zysk/Strata</th>
-                <th scope="col">Komentarz</th>
-                <th scope="col">Data ostatniej operacji</th>
+            <tr >
+                <th class="col-2 text-center">Nazwa</th>
+                <th class="col-2 text-center">Właściciel</th>
+                <th class="col-2 text-center">Zysk/Strata</th>
+                <th class="col-3 text-center">Komentarz</th>
+                <th class="col-3 text-center">Data ostatniej operacji</th>
             </tr>
         </thead>
         <tbody>
@@ -68,11 +68,11 @@
                 {% elif obj.total_profit <= 0 %}
                     <tr class="table-danger">
                 {% endif %}
-                        <th scope="row"><a href="{% url 'stock_wallet:wallet_detail' slug=obj.slug %}">{{ obj.name }}</a></th>
-                        <td>{{ obj.user }}</td>
-                        <td>{{ obj.total_profit|floatformat:2 }}</td>
-                        <td>{{ obj.comment }}</td>
-                        <td>{{ obj.created_at }}</td>
+                        <th scope="row"  class="text-center"><a href="{% url 'stock_wallet:wallet_detail' slug=obj.slug %}">{{ obj.name }}</a></th>
+                        <td  class="text-center">{{ obj.user }}</td>
+                        <td  class="text-center">{{ obj.total_profit|floatformat:2 }}</td>
+                        <td  class="text-center">{{ obj.comment }}</td>
+                        <td  class="text-center">{{ obj.created_at }}</td>
                     </tr>
             {% endfor %}
         </tbody>
