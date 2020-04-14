@@ -9,5 +9,5 @@ class WalletSerializer(serializers.ModelSerializer):
 class PurchasedShareSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchasedShare
-        fields = ['id', 'user', 'wallet', 'company', 'short_name', 'ammount',
+        fields = ['id', 'user', 'wallet', 'company_name', 'short_name', 'ammount',
                   'price_for_one_stock', 'price_for_stocks', 'created_at', 'updated_at']
