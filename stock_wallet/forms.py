@@ -1,6 +1,6 @@
 from django import forms
 from .models import Wallet
-from .vulgarity_pl_list import vulgarity_pl
+from .vulgarity_list import vulgarity_pl
 
 
 class WalletModelForm(forms.ModelForm):
