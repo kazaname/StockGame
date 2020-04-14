@@ -1,5 +1,7 @@
 from django import forms
 from .models import Wallet
+from .vulgarity_pl_list import vulgarity_pl
+
 
 class WalletModelForm(forms.ModelForm):
     class Meta:
@@ -12,6 +14,15 @@ class WalletModelForm(forms.ModelForm):
             'is_private',
             'comment',
         ]
+
+    def clean_name(self, *args, **kwargs):
+        name = self.cleaned_data.get('name')
+        qs = Wallet.objects.filter(name=name)
+        if qs.exists():
+            raise forms.ValidationError("Portfel o nazwie {name} już stworzyłeś. "
+                                        "Proszę wybrać inną nazwę dla swojego portfela.".format(name=name))
+        return name
+
 
 
 class ContactForm(forms.Form):
