@@ -6,16 +6,77 @@
 {% endblock head_content %}
 
 {% block bottomcontent %}
-<div class="container-fluid mt-3" style="min-height: 800px;">
-    <h4>{{ object.name }} <span class="desc">,Profit:
-        {% if object.total_profit >= 0 %}
-            <strong class="sucessProfit">{{ object.total_profit|floatformat:2 }} PLN</strong>
-        {% else %}
-            <strong class="failProfit">{{ object.total_profit|floatformat:2 }} PLN</strong>
-        {% endif %}
-    </span></h4>
-
-    <div class="walletDateIndex">Wallet created at: {{ object.created_at }}, Last update at: {{ object.updated_at }}</div>
-
+<div class="container-fluid mt-3">
+    <h4>
+        {{ object.name }}
+        <span class="desc"> Profit:
+            <strong class={% if object.total_profit >= 0 %} "sucessProfit" {% else %} "failProfit" {% endif %} >
+                {{ object.total_profit|floatformat:2 }} PLN
+            </strong>
+        </span>
+    </h4>
+    <div class="walletDateIndex">
+        Wallet created at: {{ object.created_at }}, Last update at: {{ object.updated_at }}
+    </div>
 </div>
+
+<table class="table table-bordered">
+    <thead class="table-secondary ">
+        <tr>
+            <th class="text-left" scope="col">Nazwa</th>
+            <th class="text-center" scope="col">Ilość</th>
+            <th class="text-center" scope="col">Cena jednej akcji</th>
+            <th class="text-center" scope="col">Zainwestowana kwota</th>
+            <th class="text-center" scope="col">Aktualny kurs</th>
+            <th class="text-center" scope="col">Data ostatniej operacji</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj_key, obj_value in shares.items %}
+        <tr class="table-primary">
+            <th class="text-left" scope="col">
+                <button type="button" class="detailInformations" >+</button>
+                <a href="{% url 'stock_wallet:share_list' slug=object.slug company_name=obj_value.data.0.company_name %}">
+                {{obj_value.data.0.company_name}} ({{obj_value.data.0.short_name}})</a></th>
+            <th class="text-center" scope="col">{{obj_value.sum.amount}}</th>
+            <th class="text-center" scope="col">{{obj_value.sum.price_per_one}}</th>
+            <th class="text-center" scope="col">{{obj_value.sum.amount_invested}}</th>
+            <th class="text-center" scope="col">{{obj_value.data.0.current_price|floatformat:2 }}</th>
+            <th class="text-center" scope="col"></th>
+        </tr>
+            {% for detail in obj_value.data %}
+            <tr class="purchaseDetails">
+                <td class="text-left" scope="col">{{detail.company_name}} ({{detail.short_name}})</td>
+                <td class="text-center" scope="col">{{detail.amount}}</td>
+                <td class="text-center" scope="col">{{detail.price_per_one|floatformat:2 }}</td>
+                <td class="text-center" scope="col">{{detail.amount_invested|floatformat:2 }}</td>
+                <td class="text-center" scope="col"></td>
+                <td class="text-center" scope="col">{{detail.updated_at}}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+$(".detailInformations").click(function() {
+
+
+    console.log('Hello');
+
+});
+
+function myFunction(x){
+    var share = document.getElementsByClassName(x);
+    console.log(x);
+    console.log(share);
+    if (share.style.display === "none"){
+        share.style.display = "block";
+    } else {
+        share.style.display = "none";
+    }
+}
+
+</script>
+
 {% endblock bottomcontent %}
