@@ -13,5 +13,9 @@ font-size: 0.7em;
 }
 
 .failProfit {
-    color: #00cc00;
+    color: #ff0000;
+}
+
+.detailInformations {
+    cursor : pointer;
 }
