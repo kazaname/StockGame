@@ -19,7 +19,9 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownWalletsLink">
                             <a class="dropdown-item" href="{% url 'stock_wallet:public_wallets' %}">Portfel</a>
+                            {% if user.is_authenticated %}
                             <a class="dropdown-item" href="{% url 'stock_wallet:create_wallet' %}">Stwórz Portfel</a>
+                            {% endif %}
                         </div>
                     </li>
                 </ul>
