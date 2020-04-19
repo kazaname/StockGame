@@ -35,7 +35,7 @@
         {% for obj_key, obj_value in shares.items %}
         <tr class="table-primary">
             <th class="text-left" scope="col">
-                <button type="button" class="detailInformations" >+</button>
+                <button type="button" id="click-me" class="detailInformations" >+</button>
                 <a href="{% url 'stock_wallet:share_list' slug=object.slug company_name=obj_value.data.0.company_name %}">
                 {{obj_value.data.0.company_name}} ({{obj_value.data.0.short_name}})</a></th>
             <th class="text-center" scope="col">{{obj_value.sum.amount}}</th>
@@ -45,7 +45,7 @@
             <th class="text-center" scope="col"></th>
         </tr>
             {% for detail in obj_value.data %}
-            <tr class="purchaseDetails">
+            <tr class="purchaseDetails toggleDisplay">
                 <td class="text-left" scope="col">{{detail.company_name}} ({{detail.short_name}})</td>
                 <td class="text-center" scope="col">{{detail.amount}}</td>
                 <td class="text-center" scope="col">{{detail.price_per_one|floatformat:2 }}</td>
@@ -59,24 +59,21 @@
 </table>
 
 <script>
-$(".detailInformations").click(function() {
-
-
-    console.log('Hello');
-
+$("#click-me").click(function() {
+    $(".table .toggleDisplay").toggleClass("in");
 });
 
-function myFunction(x){
-    var share = document.getElementsByClassName(x);
-    console.log(x);
-    console.log(share);
-    if (share.style.display === "none"){
-        share.style.display = "block";
-    } else {
-        share.style.display = "none";
-    }
-}
+    $( ".timDetails" ).click(function() {
 
+        var clientId = $(this).parent().find('.client-id').text();
+        console.log(clientId);
+        var clientId = `#${clientId}`.replace(/\s/g,'');
+        console.log(clientId);
+        var clientIdRow = clientId + '-row';
+        console.log(clientIdRow);
+        $(clientIdRow).toggleClass("hidden-data");
+
+    });
 </script>
 
 {% endblock bottomcontent %}
