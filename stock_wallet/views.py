@@ -79,7 +79,7 @@ class WalletsDetailView(DetailView):
     #     return context
 
 class WalletCreateView(LoginRequiredMixin, View):
-    login_url = reverse_lazy('home')
+    login_url = reverse_lazy('account:register')
 
     template_name = 'stock_wallet/create_wallet.html'
     form_class = WalletModelForm

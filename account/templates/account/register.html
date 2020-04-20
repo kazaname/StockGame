@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head_title %}Wallets || {{block.super}}{% endblock head_title %}
+{% block head_content %}
+
+{% endblock head_content %}
+
+{% block bottomcontent %}
+<div class="container-fluid mt-3">
+    <form method="post">{% csrf_token %}
+        <h1>{{title}}</h1>
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success">Rejestracja</button>
+    </form>
+</div>
+{% endblock bottomcontent %}

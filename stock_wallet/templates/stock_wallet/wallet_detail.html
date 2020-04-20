@@ -45,7 +45,7 @@
             <th class="text-center" scope="col"></th>
         </tr>
             {% for detail in obj_value.data %}
-            <tr class="purchaseDetails toggleDisplay">
+            <tr class="purchaseDetails">
                 <td class="text-left" scope="col">{{detail.company_name}} ({{detail.short_name}})</td>
                 <td class="text-center" scope="col">{{detail.amount}}</td>
                 <td class="text-center" scope="col">{{detail.price_per_one|floatformat:2 }}</td>
