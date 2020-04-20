@@ -24,3 +24,9 @@ font-size: 0.7em;
   border: none;
   background: none;
 }
+.toggleDisplay {
+  display: none;
+}
+.toggleDisplay.in {
+  display: table-cell;
+}

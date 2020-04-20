@@ -8,8 +8,9 @@
 {% block bottomcontent %}
 <div class="container-fluid mt-3">
     <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Send message">
+        <h1>{{title}}</h1>
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success">Rejestracja</button>
     </form>
 </div>
 {% endblock bottomcontent %}
