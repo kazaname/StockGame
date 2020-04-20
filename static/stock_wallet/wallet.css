@@ -19,3 +19,8 @@ font-size: 0.7em;
 .detailInformations {
     cursor : pointer;
 }
+
+.unstyled-button {
+  border: none;
+  background: none;
+}
