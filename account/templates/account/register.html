@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}Wallets || {{block.super}}{% endblock head_title %}
 {% block head_content %}
@@ -9,7 +10,7 @@
 <div class="container-fluid mt-3">
     <form method="post">{% csrf_token %}
         <h1>{{title}}</h1>
-        {{form.as_p}}
+        {{form|crispy}}
         <button type="submit" class="btn btn-success">Rejestracja</button>
     </form>
 </div>

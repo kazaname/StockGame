@@ -20,6 +20,10 @@ font-size: 0.7em;
     cursor : pointer;
 }
 
+.unstyled-button {
+  border: none;
+  background: none;
+}
 .toggleDisplay {
   display: none;
 }

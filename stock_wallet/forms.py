@@ -1,11 +1,11 @@
 from django import forms
 from .models import Wallet
-from .vulgarity_list import (vulgarity_pl,
-                             vulgarity_english,
-                             vulgarity_spain,
-                             vulgarity_italy,
-                             vulgarity_indonesia,
-                             vulgarity_france)
+from stockgame.vulgarity_list import (vulgarity_pl,
+                                      vulgarity_english,
+                                      vulgarity_spain,
+                                      vulgarity_italy,
+                                      vulgarity_indonesia,
+                                      vulgarity_france)
 
 class WalletModelForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control",
@@ -33,17 +33,17 @@ class WalletModelForm(forms.ModelForm):
                                         "Proszę wybrać inną nazwę dla swojego portfela.".format(name=name))
         elif len(name) < 5:
             raise forms.ValidationError("Nazwa portfela musi zawierać conajmniej 5 znaków. Proszę zmień nazwę.")
-        elif name in vulgarity_pl:
+        elif name.lower() in vulgarity_pl:
             raise forms.ValidationError("Wulgaryzmom mówimy stanowcze CHYBA NIE ;). Proszę zmień nazwę.")
-        elif name in vulgarity_english:
+        elif name.lower() in vulgarity_english:
             raise forms.ValidationError("Sorry but english wulgaryzmy też są prohibited :). Proszę zmień nazwę.")
-        elif name in vulgarity_spain:
+        elif name.lower() in vulgarity_spain:
             raise forms.ValidationError("Godne podziwu, że znasz Hiszpański, ale to też nie przejdzie :O. Proszę zmień nazwę.")
-        elif name in vulgarity_italy:
+        elif name.lower() in vulgarity_italy:
             raise forms.ValidationError("Cóż mogę żec 'non passerà' :P. Proszę zmień nazwę.")
-        elif name in vulgarity_france:
+        elif name.lower() in vulgarity_france:
             raise forms.ValidationError("Zdradzę Ci tajemnicę Francuskie wulgaryzmy też nie przejdą :D. Proszę zmień nazwę.")
-        elif name in vulgarity_indonesia:
+        elif name.lower() in vulgarity_indonesia:
             raise forms.ValidationError("Tak nawet w języku Indonezyjskim sprawdzamy wulgaryzmy ;D. Proszę zmień nazwę.")
         return name
 

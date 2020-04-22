@@ -13,3 +13,13 @@ class Register(View):
         form = RegisterForm()
         context = {"title": title, 'form': form}
         return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = RegisterForm()
+
+        title = 'Utwórz konto'
+        context = {"title": title, 'form': form}
+        return render(request, self.template_name, context)
