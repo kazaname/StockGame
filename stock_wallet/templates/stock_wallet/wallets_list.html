@@ -19,11 +19,13 @@
                 <a href="{% url 'stock_wallet:create_wallet' %}" class="btn btn-primary mr-auto btn-sm ml-5 my-3" role="button">
                     Create Wallet</a>
             {% else %}
-                <a href="{% url 'stock_wallet:create_wallet' %}" class="btn btn-primary btn-sm my-3" role="button">
-                    Logowanie </a>
-                <a class="btn btn-primary btn-sm my-3 unstyled-button"><h6> || </h6></a>
-                <a href="{% url 'stock_wallet:create_wallet' %}" class="btn btn-primary btn-sm my-3" role="button">
-                    Rejestracja </a>
+                <div class="form-group ml-3">
+                    <a href="{% url 'account:login' %}" class="btn btn-primary btn-sm my-3" role="button">
+                        Logowanie </a>
+                    <a class="btn btn-primary btn-sm my-3 unstyled-button"><h6> || </h6></a>
+                    <a href="{% url 'account:register' %}" class="btn btn-primary btn-sm my-3" role="button">
+                        Rejestracja </a>
+                </div>
             {% endif %}
         </div>
     </div>

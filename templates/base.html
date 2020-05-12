@@ -16,26 +16,31 @@
 {% include "snippets/nav.html" %}
 
 <div class="container-fluid">
+    {% block infocontent %}
+
+    {% endblock infocontent %}
     <div class="row no-gutters">
         <div class="col-12 col-lg-4 order-1">
             <div class="alert alert-primary" role="alert" style="min-height: 10px;">
                 <h1 >Informations content</h1>
-
             {% block topcontent %}
 
             {% endblock topcontent %}
             </div>
         </div>
         <div class="col-12 col-lg-8 order-6">
-           {% block bottomcontent %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}">
+                        {{ message }}
+                    </div>
+                {% endfor%}
+            {% endif%}
+            {% block bottomcontent %}
 
             {% endblock bottomcontent %}
         </div>
-
     </div>
-
-{% block content %} {% endblock content %}
-
 </div>
 
 <!-- Optional JavaScript -->

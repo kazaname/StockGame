@@ -11,8 +11,8 @@ from stockgame.vulgarity_list import (vulgarity_pl,
                                       vulgarity_france)
 
 
-class RegisterForm(UserCreationForm):
-    email = forms.EmailField()
+class UserSignUpForm(UserCreationForm):
+    email = forms.EmailField(max_length=200, help_text='Required')
 
     class Meta:
         model = User
@@ -51,7 +51,11 @@ class RegisterForm(UserCreationForm):
 
     def clean_email(self, *args, **kwargs):
         email = self.cleaned_data.get('email')
-        if not email:
+        qs = User.objects.filter(email__iexact=email)
+        if qs.exists():
+            raise forms.ValidationError("Podany email jest już przypisany do innego konta. "
+                                        "Popraw email i spróbuj ponownie.")
+        elif not email:
             raise forms.ValidationError('Email jest wymagany do weryfikacji konta. '
                                         'Wprowadź adres email i spróbuj ponownie.')
         return email

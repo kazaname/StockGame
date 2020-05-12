@@ -1,0 +1,16 @@
+{% extends "account_base.html" %}
+
+{% block head_title %}Wylogowanie || {{block.super}}{% endblock head_title %}
+{% block head_content %}
+
+{% endblock head_content %}
+{% block content %}
+<div class="mt-3">
+    <fieldset class="form-group">
+        <legend>Zostałeś poprawnie wylogowany</legend>
+    </fieldset>
+    <div class="border-top pt-3">
+        <small class="text-muted"><a href="{% url 'account:login' %}">Zaloguj Się Ponownie</a></small>
+    </div>
+</div>
+{% endblock content %}
