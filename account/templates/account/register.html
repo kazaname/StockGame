@@ -1,17 +1,21 @@
-{% extends "base.html" %}
+{% extends "account_base.html" %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}Wallets || {{block.super}}{% endblock head_title %}
+{% block head_title %}Wylogowanie || {{block.super}}{% endblock head_title %}
 {% block head_content %}
 
 {% endblock head_content %}
-
-{% block bottomcontent %}
-<div class="container-fluid mt-3">
-    <form method="post">{% csrf_token %}
-        <h1>{{title}}</h1>
-        {{form|crispy}}
-        <button type="submit" class="btn btn-success">Rejestracja</button>
-    </form>
-</div>
-{% endblock bottomcontent %}
+{% block content %}
+            <form method="POST">{% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Rejestracja</legend>
+                </fieldset>
+                {{form|crispy}}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-success">Zarejestruj</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                <small class="text-muted">Masz Już Konto? <a class="ml-2" href="{% url 'account:login' %}">Zaloguj się</a></small>
+            </div>
+{% endblock content %}
