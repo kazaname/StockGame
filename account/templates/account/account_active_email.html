@@ -1,0 +1,11 @@
+{% autoescape off %}
+Witaj,
+Twoje konto w serwisie zostało założone pomyślnie.
+Witam cię w społeczności investorów. Zostało ci potwierdzić
+Aby dokonać aktywacji kliknij w ten link: http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
+
+Jeżeli nie zakładałeś konta w naszym serwisie po prostu zignoruj tego maila.
+
+Pozdrawiamy,
+Zespół StockGame
+{% endautoescape %}
