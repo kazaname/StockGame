@@ -1,0 +1,27 @@
+{% extends "account_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}Logowanie || {{block.super}}{% endblock head_title %}
+{% block head_content %}
+
+{% endblock head_content %}
+
+{% block content %}
+<form method="POST" class="form-group">{% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Logowanie</legend>
+    </fieldset>
+    {{form|crispy}}
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-success">Zaloguj</button>
+    </div>
+</form>
+<div class="border-top pt-3">
+    <small class="text-muted">Nie Masz konta?<a class="ml-2" href="{% url 'account:register' %}">Utwórz konto</a></small>
+</div>
+<div class="pt-1">
+    <small class="text-muted">Nie pamiętasz hasła?<a class="ml-2" href="{% url 'account:password_reset' %}">Zresetuj Hasło</a></small>
+</div>
+
+
+{% endblock content %}
