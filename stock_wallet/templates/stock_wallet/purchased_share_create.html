@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}Wallets || {{block.super}}{% endblock head_title %}
+{% block head_content %}
+
+{% endblock head_content %}
+
+{% block bottomcontent %}
+<div class="container-fluid mt-3">
+    <form method="post">{% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Send message">
+    </form>
+</div>
+{% endblock bottomcontent %}

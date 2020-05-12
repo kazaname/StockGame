@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, CreateView
-from .forms import WalletModelForm
+from .forms import WalletModelForm, PurchasedShareModelForm
 from .models import Wallet, PurchasedShare
 # from rest_framework import viewsets
 # from .serializers import WalletSerializer, PurchasedShareSerializer
@@ -79,7 +79,7 @@ class WalletsDetailView(DetailView):
     #     return context
 
 class WalletCreateView(LoginRequiredMixin, View):
-    login_url = reverse_lazy('account:register')
+    login_url = reverse_lazy('account:login')
 
     template_name = 'stock_wallet/create_wallet.html'
     form_class = WalletModelForm
@@ -124,6 +124,19 @@ class PurchasedShareListView(ListView):
 
         context['purchased_shares'] = purchased_shares
         return context
+
+class PurchasedShareCreateView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account:login')
+
+    template_name = 'stock_wallet/purchased_share_create.html'
+    form_class = WalletModelForm
+
+
+    def get(self, request, *args, **kwargs):
+        form = PurchasedShareModelForm()
+        context = { 'form': form }
+        return render(request, self.template_name, context)
+
 
 # class WalletViewSet(viewsets.ModelViewSet):
 #     queryset = Wallet.objects.all()

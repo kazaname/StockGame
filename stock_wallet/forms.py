@@ -1,5 +1,5 @@
 from django import forms
-from .models import Wallet
+from .models import Wallet, PurchasedShare
 from stockgame.vulgarity_list import (vulgarity_pl,
                                       vulgarity_english,
                                       vulgarity_spain,
@@ -46,6 +46,13 @@ class WalletModelForm(forms.ModelForm):
         elif name.lower() in vulgarity_indonesia:
             raise forms.ValidationError("Tak nawet w języku Indonezyjskim sprawdzamy wulgaryzmy ;D. Proszę zmień nazwę.")
         return name
+
+class PurchasedShareModelForm(forms.ModelForm):
+    class Meta:
+        model = PurchasedShare
+        fields = [
+           'company_name', 'short_name', 'amount', 'price_per_one'
+        ]
 
 
 
