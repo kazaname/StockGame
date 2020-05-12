@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import configparser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,18 +77,33 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stockgame.wsgi.application'
 
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+config.sections()
+
+EMAIL_USE_TLS = bool(config['EMAIL']['EMAIL_USE_TLS'])
+EMAIL_HOST = config['EMAIL']['EMAIL_HOST']
+EMAIL_HOST_USER = config['EMAIL']['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = config['EMAIL']['EMAIL_HOST_PASSWORD']
+EMAIL_PORT = config['EMAIL']['EMAIL_PORT']
+
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'StockGame',
-        'USER': 'postgres',
-        'PASSWORD': 'zaq123edc',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': config['DATABASES']['ENGINE'],
+        'NAME': config['DATABASES']['NAME'],
+        'USER': config['DATABASES']['USER'],
+        'PASSWORD': config['DATABASES']['PASSWORD'],
+        'HOST': config['DATABASES']['HOST'],
+        'PORT': config['DATABASES']['PORT'],
     }
 }
 
@@ -135,3 +151,5 @@ STATICFILES_DIRS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = '/'
